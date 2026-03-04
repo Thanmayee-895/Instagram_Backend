@@ -34,9 +34,16 @@ async def analyze(username: str):
         posts = random.randint(900, 1800) # Realistic (Even Nike doesn't have 10k+)
         base_likes = random.randint(40000, 150000)
 
-    pos_sent = random.randint(68, 88)
-    neu_sent = random.randint(8, 18)
-    neg_sent = 100 - pos_sent - neu_sent
+    pos_sent = random.randint(65, 85)
+neu_sent = random.randint(10, 20)
+neg_sent = max(0, 100 - pos_sent - neu_sent)
+
+total = pos_sent + neu_sent + neg_sent
+
+# Normalize to 100
+pos_sent = int((pos_sent / total) * 100)
+neu_sent = int((neu_sent / total) * 100)
+neg_sent = 100 - pos_sent - neu_sent
     eng_rate = round(random.uniform(1.8, 5.2), 2)
 
     return {
@@ -58,4 +65,5 @@ async def analyze(username: str):
             "interaction_types": [base_likes, int(base_likes*0.08), int(base_likes*0.04)]
         },
         "hashtags": ["#lifestyle", "#explore", "#photography", "#vibes", "#nature", "#trending"]
+
     }
